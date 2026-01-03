@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Agent Weather</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="box">
+    <h2>🤖 AI Agent (Real API)</h2>
+
+    <input id="question" placeholder="What is the weather in Surat?" />
+    <button onclick="ask()">Ask Agent</button>
+
+    <p id="answer">Waiting...</p>
+</div>
+
+<script>
+function ask() {
+    const q = document.getElementById("question").value;
+
+    fetch("/ask", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question: q})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("answer").innerText = data.reply;
+    });
+}
+</script>
+
+</body>
+</html>
